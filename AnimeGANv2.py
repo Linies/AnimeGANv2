@@ -186,7 +186,7 @@ class AnimeGANv2(object) :
         self.sess.run(tf.global_variables_initializer())
 
         # saver to save model
-        self.saver = tf.train.Saver(max_to_keep=self.epoch)
+        self.saver = tf.train.Saver(max_to_keep=1)
 
         # summary writer
         self.writer = tf.summary.FileWriter(self.log_dir + '/' + self.model_dir, self.sess.graph)
@@ -268,7 +268,7 @@ class AnimeGANv2(object) :
                         j = self.training_rate
 
 
-            if (epoch + 1) >= self.init_epoch and np.mod(epoch + 1, self.save_freq) == 0:
+            if np.mod(epoch + 1, self.save_freq) == 0:
                 self.save(self.checkpoint_dir, epoch)
 
             if epoch >= self.init_epoch -1:
